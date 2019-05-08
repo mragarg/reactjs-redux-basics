@@ -40,6 +40,7 @@
 // serviceWorker.unregister();
 
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
 
 // const initialState = {
 //     result: 1,
@@ -106,7 +107,10 @@ const myLogger = (store) => (next) => (action) => {
 // Second arugment is the inital state (removed because created initialState Object)
 // combineReducers allows multiple reducers to be in store
 // applyMiddleware takes an argument that takes in a middleware we want to use
-const store = createStore(combineReducers({mathReducer, userReducer}), {}, applyMiddleware(myLogger));
+const store = createStore(combineReducers({mathReducer, userReducer}), 
+                {}, 
+                applyMiddleware(myLogger)
+                );
 
 // Called whenever store is update
 store.subscribe(() => {
