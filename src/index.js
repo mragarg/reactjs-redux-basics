@@ -39,7 +39,7 @@
 // // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
 
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
 // const initialState = {
 //     result: 1,
@@ -98,7 +98,7 @@ const userReducer = (state = {
 };
 
 // Second arugment is the inital state (removed because created initialState Object)
-const store = createStore(reducer);
+const store = createStore(combineReducers({mathReducer, userReducer}));
 
 // Called whenever store is update
 store.subscribe(() => {
@@ -120,3 +120,8 @@ store.dispatch({
     type: "SUBTRACT",
     payload: 80
 }); // Expect 43
+
+store.dispatch({
+    type: "SET_AGE",
+    payload: 30
+}); // Expect Age: 30
