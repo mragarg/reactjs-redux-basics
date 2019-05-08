@@ -44,7 +44,7 @@ import { createStore } from 'redux';
 const reducer = (state, action) => {
     switch (action.type) {
         case "ADD":
-            // Logic
+            state = state + action.payload;
             break;
         case "SUBTRACT":
             // Logic
@@ -55,4 +55,16 @@ const reducer = (state, action) => {
     return state;
 };
 
+// Second arugment is the inital state
 const store = createStore(reducer, 1);
+
+// Called whenever store is update
+store.subscribe(() => {
+    console.log("Store updated", store.getState());
+});
+
+// Dispatch expects a JS Object
+store.dispatch({
+    type: "ADD",
+    payload: 10   // Payload is the value of the action
+});
