@@ -39,7 +39,7 @@
 // // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
 
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 // const initialState = {
 //     result: 1,
@@ -97,8 +97,16 @@ const userReducer = (state = {
     return state;
 };
 
+// Middleware that logs something
+const myLogger = (store) => (next) => (action) => {
+    console.log("Logged Action: ", action);
+    next(action); // next method makes the action travel further (updates store/state)
+}
+
 // Second arugment is the inital state (removed because created initialState Object)
-const store = createStore(combineReducers({mathReducer, userReducer}));
+// combineReducers allows multiple reducers to be in store
+// applyMiddleware takes an argument that takes in a middleware we want to use
+const store = createStore(combineReducers({mathReducer, userReducer}), {}, applyMiddleware(myLogger));
 
 // Called whenever store is update
 store.subscribe(() => {
