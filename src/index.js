@@ -41,13 +41,15 @@
 
 import { createStore } from 'redux';
 
-const initialState = {
-    result: 1,
-    lastValues: [],
-    username: "Max"
-}
+// const initialState = {
+//     result: 1,
+//     lastValues: [],
+// }
 
-const reducer = (state = initialState, action) => {
+const mathReducer = (state = {
+                        result: 1,
+                        lastValues: [],
+                    }, action) => {
     switch (action.type) {
         case "ADD":
             state = {
