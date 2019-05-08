@@ -1,8 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+import { User } from './components/User';
+import { Main } from './components/Main';
+
+class App extends React.Component {
+    constructor(props) {
+      super(props);
+    
+      this.state = {
+         username: "Max"
+      }
+    }
+
+    _changeUsername = (newName) => {
+        this.setState({
+            username: newName
+        });
+    }
+
+    render() {
+        return (
+            <div className="container">
+                <Main changeUsername={this._changeUsername} />
+                <User username={this.state.username} />
+            </div>
+        );
+    }
+    
+}
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
