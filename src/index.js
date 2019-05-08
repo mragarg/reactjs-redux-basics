@@ -48,7 +48,7 @@ import { createStore } from 'redux';
 
 const mathReducer = (state = {
                         result: 1,
-                        lastValues: [],
+                        lastValues: []
                     }, action) => {
     switch (action.type) {
         case "ADD":
@@ -64,6 +64,31 @@ const mathReducer = (state = {
                 ...state,
                 result: state.result - action.payload,
                 lastValues: [...state.lastValues, action.payload]
+            }
+            break;
+    }
+
+    // Always return a state because that's the state the App will use
+    return state;
+};
+
+
+const userReducer = (state = {
+                        name: 'Max',
+                        age: 27
+                    }, action) => {
+    switch (action.type) {
+        case "SET_NAME":
+            state = {
+                ...state,
+                name: action.payload,
+            };
+            break;
+        case "SET_AGE":
+            // state.result -= action.payload;      // DON'T DO THIS BECAUSE STATE IS IMMUTABLE
+            state = {
+                ...state,
+                age: action.payload
             }
             break;
     }
