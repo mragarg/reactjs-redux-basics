@@ -1,5 +1,12 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import { App } from './components/App'
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
+
+import { Provider } from 'react-redux';
+
 // import * as serviceWorker from './serviceWorker';
 
 // import { User } from './components/User';
@@ -31,7 +38,7 @@
     
 // }
 
-
+// MOVED TO BOTTOM NOW 
 // ReactDOM.render(<App />, document.getElementById('root'));
 
 // // If you want your app to work offline and load faster, you can change
@@ -39,8 +46,9 @@
 // // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
 
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import logger from 'redux-logger';
+// MOVED UP TOP
+// import { createStore, combineReducers, applyMiddleware } from 'redux';
+// import logger from 'redux-logger';
 
 // const initialState = {
 //     result: 1,
@@ -108,9 +116,10 @@ const myLogger = (store) => (next) => (action) => {
 // combineReducers allows multiple reducers to be in store
 // applyMiddleware takes an argument that takes in a middleware we want to use
 const store = createStore(
-    combineReducers({mathReducer, userReducer}), 
+    combineReducers({math: mathReducer, user: userReducer}), 
     {}, 
-    applyMiddleware(myLogger, logger)
+    // applyMiddleware(myLogger, logger)
+    applyMiddleware(logger)
 );
 
 // Called whenever store is update
@@ -118,23 +127,30 @@ store.subscribe(() => {
     console.log("Store updated", store.getState());
 });
 
-// Dispatch expects a JS Object
-store.dispatch({
-    type: "ADD",
-    payload: 100   // Payload is the value of the action
-}); // Expect 101
+// // Dispatch expects a JS Object
+// store.dispatch({
+//     type: "ADD",
+//     payload: 100   // Payload is the value of the action
+// }); // Expect 101
 
-store.dispatch({
-    type: "ADD",
-    payload: 22
-}); // Expect 123
+// store.dispatch({
+//     type: "ADD",
+//     payload: 22
+// }); // Expect 123
 
-store.dispatch({
-    type: "SUBTRACT",
-    payload: 80
-}); // Expect 43
+// store.dispatch({
+//     type: "SUBTRACT",
+//     payload: 80
+// }); // Expect 43
 
-store.dispatch({
-    type: "SET_AGE",
-    payload: 30
-}); // Expect Age: 30
+// store.dispatch({
+//     type: "SET_AGE",
+//     payload: 30
+// }); // Expect Age: 30
+
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>
+    , document.getElementById('root'));
